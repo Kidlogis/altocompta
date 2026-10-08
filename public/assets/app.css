@@ -1,0 +1,532 @@
+/* ============================================================
+   TOKENS — remplacer par les valeurs LogiSign
+   ============================================================ */
+:root{
+  --encre:      #142033;   /* barre latérale, titres */
+  --accent:     #1B6CA8;   /* actions primaires, liens */
+  --accent-fonce:#155681;
+  --papier:     #F1F4F8;   /* fond application */
+  --carte:      #FFFFFF;
+  --trait:      #DCE3EC;
+
+  --recette:    #0E7C5A;
+  --depense:    #B4463C;
+  --attente:    #A8720E;
+
+  --texte:      #1B2836;
+  --sourdine:   #6B7A8D;
+
+  --r:  6px;
+  --r-sm: 4px;
+  --ombre: 0 1px 2px rgba(20,32,51,.06), 0 2px 8px rgba(20,32,51,.04);
+
+  --ui: 'Archivo', system-ui, -apple-system, sans-serif;
+  --chiffre: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--ui);
+  background:var(--papier);
+  color:var(--texte);
+  font-size:14px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font:inherit;color:inherit}
+a{color:var(--accent);text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--r-sm)}
+
+/* Les montants : chasse fixe, alignés à droite, comme un registre papier */
+.num{font-family:var(--chiffre);font-variant-numeric:tabular-nums;font-feature-settings:"tnum";text-align:right;white-space:nowrap}
+.num-c{color:var(--recette)}
+.num-d{color:var(--depense)}
+
+/* ============================================================
+   COQUE
+   ============================================================ */
+.app{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
+
+/* --- Barre latérale --- */
+.rail{background:var(--encre);color:#fff;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.marque{
+  padding:22px 14px 20px;border-bottom:1px solid rgba(255,255,255,.09);
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+}
+.marque-logo{display:block;height:88px;width:auto;max-width:100%}
+.marque span{font-size:11px;color:rgba(255,255,255,.5);margin-top:10px;letter-spacing:.04em;text-transform:uppercase}
+
+.nav{padding:4px 14px 14px;flex:1;overflow-y:auto}
+
+/* Menu en tuiles, à la Windows 10 : pictogrammes Iconoir sur fond de couleur. */
+.tuiles-titre{
+  font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:rgba(255,255,255,.4);padding:14px 2px 7px;
+}
+.tuiles-titre:first-child{padding-top:6px}
+.tuiles-nav{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.tuile-nav{
+  position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;height:92px;padding:10px;border-radius:14px;color:#fff;text-decoration:none;
+  text-align:center;box-shadow:0 1px 2px rgba(0,0,0,.18);
+  transition:transform .12s ease,filter .12s ease,box-shadow .12s ease;
+}
+.tuile-nav:hover{filter:brightness(1.1)}
+.tuile-nav:active{transform:scale(.96)}
+.tuile-nav.on{box-shadow:0 0 0 2px rgba(255,255,255,.9) inset,0 1px 2px rgba(0,0,0,.18)}
+.tuile-nav-icone svg{width:26px;height:26px;stroke-width:1.6;display:block}
+.tuile-nav-texte{font-size:11.5px;font-weight:600;line-height:1.25}
+.tuile-nav-badge{
+  position:absolute;top:8px;right:8px;background:#fff;color:#1a1a1a;
+  font-size:11px;font-weight:700;border-radius:999px;min-width:19px;height:19px;
+  display:flex;align-items:center;justify-content:center;padding:0 5px;
+}
+.nav-titre{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.38);padding:14px 8px 6px;font-weight:600}
+.nav button{
+  display:flex;align-items:center;gap:9px;width:100%;
+  padding:8px 10px;border-radius:var(--r-sm);
+  color:rgba(255,255,255,.76);font-size:13.5px;text-align:left;
+}
+.nav button:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav button[aria-current="page"]{background:var(--accent);color:#fff;font-weight:500}
+.nav .pastille{margin-left:auto;background:var(--attente);color:#fff;font-size:11px;font-weight:600;padding:1px 6px;border-radius:9px;font-family:var(--chiffre)}
+.nav button[aria-current="page"] .pastille{background:rgba(255,255,255,.25)}
+
+.rail-pied{padding:12px 14px;border-top:1px solid rgba(255,255,255,.09);font-size:12px;color:rgba(255,255,255,.5)}
+.rail-pied b{color:rgba(255,255,255,.85);font-weight:500;display:block}
+
+/* --- En-tête --- */
+.tete{
+  background:var(--carte);border-bottom:1px solid var(--trait);
+  padding:0 24px;height:56px;
+  display:flex;align-items:center;gap:18px;
+  position:sticky;top:0;z-index:20;
+}
+.tete h1{font-size:16px;font-weight:600;letter-spacing:-.01em}
+.exercice{margin-left:auto;display:flex;align-items:center;gap:8px}
+.exercice label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--sourdine);font-weight:600}
+.exercice select{
+  border:1px solid var(--trait);border-radius:var(--r-sm);
+  padding:5px 8px;background:var(--carte);font-family:var(--chiffre);font-size:13px;font-weight:500;
+}
+.jauge{
+  display:flex;align-items:baseline;gap:7px;
+  padding-left:18px;border-left:1px solid var(--trait);
+}
+.jauge span{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--sourdine);font-weight:600}
+.jauge strong{font-family:var(--chiffre);font-size:16px;font-weight:600;color:var(--recette)}
+
+main{padding:22px 24px 60px;max-width:1600px}
+
+/* ============================================================
+   PRIMITIVES
+   ============================================================ */
+.carte{background:var(--carte);border:1px solid var(--trait);border-radius:var(--r);box-shadow:var(--ombre)}
+.carte-tete{padding:13px 16px;border-bottom:1px solid var(--trait);display:flex;align-items:center;gap:10px}
+.carte-tete h2{font-size:13.5px;font-weight:600}
+.carte-tete .sous{font-size:12px;color:var(--sourdine);font-weight:400}
+
+.btn{padding:7px 13px;border-radius:var(--r-sm);font-size:13px;font-weight:500;border:1px solid var(--trait);background:var(--carte);transition:background .12s}
+.btn:hover{background:var(--papier)}
+.btn-p{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-p:hover{background:var(--accent-fonce)}
+.btn-sm{padding:4px 9px;font-size:12px}
+.droite{margin-left:auto}
+
+table{width:100%;border-collapse:collapse}
+th{
+  text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--sourdine);font-weight:600;padding:9px 14px;
+  border-bottom:1px solid var(--trait);background:#FAFBFD;
+}
+th.num{text-align:right}
+td{padding:10px 14px;border-bottom:1px solid #EDF1F6;font-size:13.5px;vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#FAFBFD}
+.ref{font-family:var(--chiffre);font-size:12px;color:var(--sourdine)}
+.date{font-family:var(--chiffre);font-size:12.5px;white-space:nowrap}
+
+.etiq{display:inline-block;padding:2px 7px;border-radius:3px;font-size:11.5px;font-weight:500;background:var(--papier);color:var(--sourdine);border:1px solid var(--trait)}
+.etiq-2035{font-family:var(--chiffre);font-size:11px}
+.puce{display:inline-flex;align-items:center;gap:5px;font-size:12px}
+.puce::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.p-ok{color:var(--recette)}
+.p-att{color:var(--attente)}
+
+/* --- Tuiles chiffrées --- */
+.tuiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.tuile{background:var(--carte);border:1px solid var(--trait);border-radius:var(--r);padding:14px 15px;box-shadow:var(--ombre)}
+.tuile .lib{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--sourdine);font-weight:600}
+.tuile .val{font-family:var(--chiffre);font-size:21px;font-weight:600;margin-top:6px;letter-spacing:-.02em}
+.tuile .case{font-family:var(--chiffre);font-size:10.5px;color:var(--sourdine);margin-top:3px}
+.tuile.forte{background:var(--encre);border-color:var(--encre)}
+.tuile.forte .lib{color:rgba(255,255,255,.55)}
+.tuile.forte .val{color:#fff}
+.tuile.forte .case{color:rgba(255,255,255,.45)}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* ============================================================
+   TRIAGE — l'écran signature
+   ============================================================ */
+.triage{display:grid;grid-template-columns:1fr 320px;gap:14px;align-items:start}
+
+.ligne{
+  display:grid;grid-template-columns:82px 1fr 110px;
+  gap:6px 12px;align-items:center;
+  padding:11px 14px;border-bottom:1px solid #EDF1F6;
+}
+.ligne:last-child{border-bottom:none}
+.ligne.vise{background:#F0F6FC;box-shadow:inset 3px 0 0 var(--accent)}
+.ligne .lib-op{font-size:13.5px;font-weight:500;line-height:1.35}
+.ligne .src{font-size:11.5px;color:var(--sourdine);margin-top:2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ligne .src code{font-family:var(--chiffre);font-size:11px}
+.ligne .montant{font-family:var(--chiffre);font-size:14px;font-weight:600;text-align:right}
+.actes{
+  grid-column:1 / -1;
+  display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;
+  margin-top:2px;
+}
+.acte{
+  padding:5px 9px;border:1px solid var(--trait);border-radius:var(--r-sm);
+  font-size:12px;font-weight:500;background:var(--carte);white-space:nowrap;
+}
+.acte:hover{border-color:currentColor}
+.acte-r{color:var(--recette)}
+.acte-d{color:var(--depense)}
+.acte-x{color:var(--sourdine)}
+
+.suggere{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;padding:2px 7px;border-radius:3px;
+  background:#EEF5FB;color:var(--accent);border:1px solid #D3E4F3;
+  font-family:var(--chiffre);
+}
+
+/* Panneau règles */
+.regle{padding:11px 14px;border-bottom:1px solid #EDF1F6;font-size:12.5px}
+.regle:last-child{border-bottom:none}
+.regle .motif{font-family:var(--chiffre);font-size:12px;background:var(--papier);padding:1px 5px;border-radius:3px;border:1px solid var(--trait)}
+.regle .fleche{color:var(--sourdine);margin:0 5px}
+.regle .cible{font-weight:500}
+.regle .cpt{font-family:var(--chiffre);font-size:11px;color:var(--sourdine);margin-top:3px}
+
+/* ============================================================
+   2035
+   ============================================================ */
+.f2035{font-size:13px}
+.f2035 .bloc{border-bottom:1px solid var(--trait)}
+.f2035 .bloc:last-child{border-bottom:none}
+.f2035 .bandeau{
+  padding:9px 16px;background:#FAFBFD;
+  font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--sourdine);font-weight:600;
+}
+.f2035 .lg{display:grid;grid-template-columns:44px 1fr 140px;gap:10px;padding:7px 16px;align-items:center}
+.f2035 .lg:hover{background:#FAFBFD}
+.f2035 .code{font-family:var(--chiffre);font-size:11.5px;font-weight:600;color:var(--sourdine);letter-spacing:.03em}
+.f2035 .lg .num{font-size:13px}
+.f2035 .total{background:#F6F8FB;font-weight:600}
+.f2035 .total .num{font-weight:600}
+.f2035 .resultat{background:var(--encre);color:#fff}
+.f2035 .resultat .code{color:rgba(255,255,255,.5)}
+.f2035 .resultat .num{color:#fff;font-size:15px;font-weight:600}
+.vide{color:var(--sourdine)}
+
+/* --- Connexion --- */
+.champ{padding:14px 16px;border-bottom:1px solid #EDF1F6}
+.champ:last-child{border-bottom:none}
+.champ label{display:block;font-size:12px;font-weight:600;margin-bottom:5px}
+.champ .aide{font-size:12px;color:var(--sourdine);margin-top:5px;line-height:1.45}
+.champ input,.champ select{
+  width:100%;padding:7px 10px;border:1px solid var(--trait);border-radius:var(--r-sm);
+  font-size:13px;background:var(--carte);
+}
+.champ input[readonly]{background:var(--papier);font-family:var(--chiffre);color:var(--sourdine)}
+
+.etat{display:flex;align-items:center;gap:9px;padding:11px 16px;background:#F2F9F5;border-bottom:1px solid #D8EBE1;font-size:13px}
+.etat b{color:var(--recette);font-weight:600}
+
+.vue{display:none}
+.vue.on{display:block}
+
+@media(max-width:1000px){
+  .app{grid-template-columns:1fr}
+  .rail{position:static;height:auto;flex-direction:row;align-items:center;overflow-x:auto}
+  .marque{
+    border-bottom:none;border-right:1px solid rgba(255,255,255,.09);white-space:nowrap;padding:12px 16px;
+    flex-direction:row;
+  }
+  .marque-logo{height:28px}
+  .marque span{display:none}
+  .nav{display:flex;gap:8px;padding:8px;align-items:center}
+  .nav-titre,.tuiles-titre,.rail-pied{display:none}
+  .nav button{white-space:nowrap}
+  .tuiles-nav{display:flex;gap:6px}
+  .tuile-nav{
+    height:40px;width:40px;padding:0;border-radius:10px;
+    align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .tuile-nav-texte{display:none}
+  .tuile-nav-icone svg{width:20px;height:20px}
+  .tuile-nav-badge{top:-5px;right:-5px}
+  .tuiles{grid-template-columns:repeat(2,1fr)}
+  .duo,.triage{grid-template-columns:1fr}
+  .tete{height:auto;padding:12px 16px;flex-wrap:wrap}
+  main{padding:16px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+
+/* ============================================================
+   AJOUTS APPLICATIFS
+   ============================================================ */
+.lien-pied{color:rgba(255,255,255,.55);font-size:12px;text-decoration:underline;padding:0;margin-top:4px}
+.lien-pied:hover{color:#fff}
+
+a.btn{display:inline-block;text-decoration:none}
+
+.vide-etat{padding:26px 18px;text-align:center;color:var(--sourdine);font-size:13px;line-height:1.6}
+
+.alerte{
+  margin:0 16px 4px;padding:9px 12px;border-radius:var(--r-sm);
+  background:#FCF0EF;border:1px solid #F0D2CF;color:var(--depense);font-size:13px;
+}
+
+/* Écran de connexion */
+.ecran-connexion{
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;padding:20px;background:var(--encre);
+}
+.boite-connexion{width:100%;max-width:360px;padding-bottom:6px}
+.marque-connexion{padding:26px 16px 18px;border-bottom:1px solid var(--trait);margin-bottom:6px}
+.marque-connexion .marque-logo{width:240px;height:auto;display:block}
+.marque-connexion span{display:block;font-size:11px;color:var(--sourdine);margin-top:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600}
+
+/* ============================================================
+   COMPOSANTS APPLICATIFS (lots C, D, E)
+   ============================================================ */
+
+/* Messages */
+.flash{
+  padding:10px 14px;border-radius:var(--r);margin-bottom:16px;font-size:13.5px;
+  border:1px solid #CFE3D6;background:#F1F9F4;color:var(--recette);
+}
+.flash-ko{border-color:#F0D2CF;background:#FCF0EF;color:var(--depense)}
+.flash-att{border-color:#F1DDB5;background:#FDF6E8;color:#8A5A00}
+
+/* Formulaires */
+.duo-form{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:14px;align-items:start}
+.champ-duo{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.champ-duo .champ{padding:0;border:none}
+.champ textarea,.champ select{
+  width:100%;padding:7px 10px;border:1px solid var(--trait);border-radius:var(--r-sm);
+  font-size:13px;background:var(--carte);font-family:inherit;
+}
+.champ input[type=file]{width:100%;font-size:12.5px;padding:6px 0}
+.champ input[type=date],.champ input[type=number]{font-family:var(--chiffre)}
+.barre-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.suffixe{display:flex;align-items:center;gap:6px}
+.suffixe input{flex:1}
+.suffixe span{color:var(--sourdine);font-size:13px}
+.txt{font-size:13px;color:var(--sourdine);line-height:1.55}
+
+/* Boutons */
+.btn-danger{color:var(--depense);border-color:#EBC9C5}
+.btn-danger:hover{background:#FCF0EF}
+.lien-mini{font-size:12px;color:var(--accent);background:none;border:none;padding:0;text-decoration:none;cursor:pointer}
+.lien-mini:hover{text-decoration:underline}
+.lien-danger{color:var(--depense)}
+
+/* Tables */
+.actions{text-align:right}
+.sous-ligne{font-size:11.5px;color:var(--sourdine);margin-top:2px}
+.totalr{font-weight:600;background:#F6F8FB;border-top:1px solid var(--trait)}
+tfoot td{padding:10px 14px}
+.qp{
+  font-family:var(--chiffre);font-size:10.5px;color:var(--sourdine);
+  background:var(--papier);border:1px solid var(--trait);border-radius:3px;padding:0 4px;margin-right:5px;
+}
+
+/* Recherche et filtres */
+.recherche input,.filtres input[type=search],.filtres select{
+  padding:5px 9px;border:1px solid var(--trait);border-radius:var(--r-sm);font-size:13px;background:var(--carte);
+}
+.filtres{
+  display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  padding:10px 16px;border-bottom:1px solid var(--trait);background:#FAFBFD;
+}
+.filtres .case{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--sourdine)}
+.filtres .case input{width:auto}
+
+/* Justificatifs */
+.fichier{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:10px 16px;border-bottom:1px solid #EDF1F6;font-size:13px;
+}
+.fichier .sous-ligne{margin:0;font-family:var(--chiffre)}
+
+/* Triage */
+.aide-clavier{
+  padding:8px 16px;border-bottom:1px solid var(--trait);background:#FAFBFD;
+  font-size:11.5px;color:var(--sourdine);
+}
+.aide-clavier kbd{
+  font-family:var(--chiffre);font-size:11px;background:var(--carte);
+  border:1px solid var(--trait);border-bottom-width:2px;border-radius:3px;
+  padding:1px 5px;margin-right:3px;
+}
+.ligne.partie{opacity:.4;pointer-events:none}
+.acte-form{display:inline-flex;align-items:center;gap:4px;margin:0}
+.mini-select{
+  border:1px solid var(--trait);border-radius:var(--r-sm);padding:4px 3px;
+  font-family:var(--chiffre);font-size:11px;background:var(--carte);max-width:100px;
+}
+.regle.inactive{opacity:.5}
+.regle-actions{display:flex;gap:10px;margin-top:5px}
+.regle-actions form{margin:0}
+
+/* Altoviz */
+.etat-ko{background:#FCF0EF;border-bottom-color:#F0D2CF}
+.etat-ko b{color:var(--depense)}
+
+/* Installateur */
+.boite-install{width:100%;max-width:520px}
+.logo-install{width:240px;height:auto;display:block;margin:0 auto 20px}
+.fil{list-style:none;display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.fil li{
+  display:flex;align-items:center;gap:6px;font-size:11.5px;
+  color:rgba(255,255,255,.45);padding:5px 10px;border-radius:20px;
+  background:rgba(255,255,255,.06);
+}
+.fil li span{
+  font-family:var(--chiffre);font-size:10.5px;width:17px;height:17px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.12);
+}
+.fil li.courant{color:#fff;background:var(--accent)}
+.fil li.courant span{background:rgba(255,255,255,.28)}
+.fil li.fait{color:rgba(255,255,255,.75)}
+.fil li.fait span{background:var(--recette);color:#fff}
+.p-ko{color:var(--depense)}
+.cmd{
+  font-family:var(--chiffre);font-size:12px;background:var(--encre);color:#fff;
+  padding:9px 12px;border-radius:var(--r-sm);margin-top:8px;overflow-x:auto;
+}
+code{font-family:var(--chiffre);font-size:12px;background:var(--papier);
+  border:1px solid var(--trait);border-radius:3px;padding:1px 4px}
+
+@media(max-width:1000px){
+  .duo-form{grid-template-columns:1fr}
+  .champ-duo{grid-template-columns:1fr}
+  .ligne{grid-template-columns:1fr;gap:8px}
+  .ligne .montant{text-align:left}
+  .actes{justify-content:flex-start;flex-wrap:wrap}
+}
+
+/* Trombone de dépôt au triage */
+.joindre{margin:0}
+.acte-j{
+  display:inline-flex;align-items:center;gap:3px;cursor:pointer;
+  font-family:var(--chiffre);font-size:12px;color:var(--sourdine);
+}
+.acte-j:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Pagination */
+.pager{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:12px;font-size:13px}
+.pager-info{color:var(--sourdine);font-size:12px;margin-right:auto}
+.pager-lien{
+  display:inline-block;min-width:28px;text-align:center;
+  padding:4px 8px;border:1px solid var(--trait);border-radius:var(--r-sm);
+  background:var(--carte);text-decoration:none;font-family:var(--chiffre);font-size:12.5px;
+}
+.pager-lien:hover{background:var(--papier)}
+.pager-lien.courant{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.pager-coupure{color:var(--sourdine);padding:0 2px}
+
+/* Champ compact en ligne dans un tableau */
+.mini-champ{
+  border:1px solid var(--trait);border-radius:var(--r-sm);
+  padding:3px 6px;font-size:12px;width:110px;background:var(--carte);
+}
+.acte-i{color:var(--accent)}
+
+/* Virement interne au triage */
+.acte-v{color:var(--accent);border-color:#D3E4F3}
+.suggere-vi{background:#EEF3FB;border-color:#D3DCEB}
+.select-cat{max-width:230px}
+
+/* Corrections : l'écriture annulée, sa ligne d'annulation, puis la nouvelle écriture.
+   Pas de texte barré — c'est la ligne d'annulation, au montant opposé, qui annule. */
+tr.annulee td{color:var(--sourdine)}
+tr.annulation td{color:var(--sourdine);font-style:italic;background:#FBF8F0}
+tr.annulation td .sous-ligne{font-style:normal}
+.etiq-ann{background:#F6E7C8;color:#7A5200}
+.etiq-rect{background:#E3EEF9;color:#1B5E9E}
+
+/* Page Mon compte : fiche entreprise en sections, panneau latéral à droite. */
+.profil-grille{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;align-items:start}
+.profil-cote{position:sticky;top:14px}
+.champ-trio{grid-template-columns:1fr 2fr 1fr}
+.barre-fiche{display:flex;align-items:center;gap:14px;margin-top:14px;padding:4px 2px}
+/* Jauge de complétude de la fiche — « .jauge » désigne déjà l'encart Résultat de l'en-tête. */
+.jauge-fiche{height:8px;border-radius:99px;background:#E4EAF2;overflow:hidden}
+.jauge-fiche>div{height:100%;background:var(--recette);border-radius:99px;transition:width .3s}
+@media(max-width:1000px){
+  .profil-grille{grid-template-columns:1fr}
+  .profil-cote{position:static}
+  .champ-trio{grid-template-columns:1fr}
+}
+
+/* Contrôle des doublons : une paire = deux opérations côte à côte. */
+.doublon-paire{border-bottom:1px solid var(--trait);padding:14px 16px}
+.doublon-paire:last-child{border-bottom:none}
+.doublon-entete{display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
+.doublon-corps{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.doublon-moitie{border:1px solid var(--trait);border-radius:var(--r-sm);padding:10px 12px;background:var(--carte)}
+.doublon-lib{font-weight:500;margin:2px 0 4px;word-break:break-word}
+.doublon-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+@media(max-width:1000px){.doublon-corps{grid-template-columns:1fr}}
+
+/* Nouvel exercice : un bouton qui déplie un petit formulaire sous l'en-tête. */
+.exercice-neuf{position:relative;margin-left:10px}
+.exercice-neuf summary{list-style:none;cursor:pointer;user-select:none}
+.exercice-neuf summary::-webkit-details-marker{display:none}
+.exercice-neuf-corps{position:absolute;right:0;top:calc(100% + 8px);z-index:30;width:270px;display:grid;gap:8px;
+  padding:14px;background:var(--carte);border:1px solid var(--trait);border-radius:var(--r-sm);
+  box-shadow:0 8px 24px rgba(20,32,50,.14)}
+.exercice-neuf-corps label{font-size:12px;font-weight:600}
+.exercice-neuf-corps input[type=number]{width:100%;font-family:var(--chiffre)}
+.exercice-neuf-corps .aide{font-size:12px;line-height:1.45;color:var(--sourdine)}
+@media(max-width:700px){.exercice-neuf-corps{position:fixed;left:12px;right:12px;width:auto;top:60px}}
+
+/* Provisions : trois chiffres en vedette, puis le détail. */
+.provision-chiffres{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 16px}
+.provision-chiffre{border:1px solid var(--trait);border-radius:var(--r-sm);padding:12px 14px;background:var(--carte)}
+.provision-chiffre span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--sourdine);font-weight:600}
+.provision-chiffre strong{display:block;margin-top:4px;font-family:var(--chiffre);font-size:20px;font-weight:600}
+.provision-chiffre small{display:block;margin-top:2px;color:var(--sourdine);font-size:12px}
+.provision-total{background:#F1F6FB;border-color:#D3E4F3}
+.provision-detail td.sous{padding-left:28px;color:var(--sourdine)}
+.provision-detail tr.fort td{font-weight:600;background:var(--fond-leger,#F7F9FC)}
+.avis{margin:0;padding:10px 16px;font-size:12.5px;line-height:1.45;border-bottom:1px solid var(--trait);background:#FDF6E8;color:#8A5A00}
+.modes{display:grid;gap:6px}
+.modes label{display:flex;gap:8px;align-items:flex-start;font-weight:500;cursor:pointer}
+.modes input{width:auto;margin-top:3px}
+@media(max-width:700px){.provision-chiffres{grid-template-columns:1fr}}
+
+/* Boutique d'extensions : une grille de fiches produit. */
+.boutique-grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;padding:16px}
+.produit{border:1px solid var(--trait);border-radius:var(--r-sm);background:var(--carte);display:flex;flex-direction:column;overflow:hidden}
+.produit img{width:100%;aspect-ratio:16/10;object-fit:cover;background:#F1F6FB;display:block}
+.produit-corps{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.produit h3{margin:0;font-size:16px}
+.produit-prix{font-family:var(--chiffre);font-size:18px;font-weight:600}
+.produit details{margin-top:auto;border-top:1px solid var(--trait);padding-top:8px}
+.produit summary{cursor:pointer;font-size:12.5px;color:var(--sourdine)}
+.produit-detail{font-size:13px;line-height:1.5;margin-top:8px}
+.produit-detail p{white-space:pre-line;margin:0 0 8px}
+.produit-detail ul{margin:6px 0 8px 18px;padding:0}
+.empreinte{font-family:var(--chiffre);font-size:11.5px;word-break:break-all}

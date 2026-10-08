@@ -1,0 +1,27 @@
+# ---------------------------------------------------------------------
+#  Repli pour hébergement mutualisé où le docroot ne peut pas pointer
+#  sur public/.
+#
+#  Déposer alors l'application à la racine du site : ce fichier réécrit
+#  tout vers public/ et refuse l'accès direct aux dossiers sensibles.
+#
+#  Si l'hébergeur permet de choisir le docroot, préférer public/ et
+#  supprimer ce fichier : la protection est alors structurelle plutôt
+#  qu'à base de règles.
+# ---------------------------------------------------------------------
+
+Options -Indexes
+
+RewriteEngine On
+
+# Rien en dehors de public/ ne doit être servi.
+# NC : insensible à la casse, au cas où le système de fichiers le serait.
+RewriteRule ^(config|src|db|bin|storage|templates|tests)(/|$) - [F,L,NC]
+
+# Fichiers de travail jamais exposés.
+RewriteRule (^|/)\.(git|env|htpasswd) - [F,L,NC]
+RewriteRule \.(sql|md|log|sh|dist|bak)$ - [F,L,NC]
+
+# Tout le reste passe par public/.
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ public/$1 [L]

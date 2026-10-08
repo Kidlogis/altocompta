@@ -1,0 +1,6 @@
+/config/config.php
+/storage/justificatifs/*
+!/storage/justificatifs/.gitkeep
+/vendor/
+*.log
+.DS_Store

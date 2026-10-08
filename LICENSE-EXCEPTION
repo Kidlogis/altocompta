@@ -1,0 +1,113 @@
+EXCEPTION POUR LES EXTENSIONS
+(permission supplémentaire au titre de l'article 7 de la GNU Affero General Public License v3)
+
+Copyright (c) 2026 Thomas — Kidlogis.
+
+Le programme AltoCompta (le « Programme ») est distribué sous la GNU Affero General Public
+License, version 3 (la « Licence »), dont le texte figure dans le fichier LICENSE. Les titulaires
+des droits d'auteur sur le Programme y ajoutent, en application de l'article 7 de la Licence, la
+permission supplémentaire ci-dessous. Elle s'ajoute à la Licence sans la remplacer.
+
+Version de référence : le texte français. La traduction anglaise ci-après n'est donnée qu'à titre
+de commodité ; en cas de divergence, le texte français fait foi.
+
+
+1. DÉFINITION
+
+Une « Extension » est un module qui :
+  a) ne contient aucun fichier du Programme et n'en modifie aucun ;
+  b) est chargé par le mécanisme d'extensions du Programme (la classe Bnc\Plugin, fichier
+     src/Plugin.php, et le manifeste plugin.php de l'extension) ; et
+  c) n'interagit avec le Programme que par ce manifeste, par les classes, fonctions et constantes
+     publiques du Programme, par les tables de sa base de données et par les points d'extension
+     que ce mécanisme met à disposition (routes, navigation, migrations, contributions à la
+     déclaration, connecteurs).
+
+
+2. PERMISSION
+
+Vous pouvez écrire, utiliser, copier, distribuer et vendre une Extension, et la distribuer avec le
+Programme ou en combinaison avec lui, sous les conditions de licence de votre choix — libres ou
+propriétaires, y compris « tous droits réservés » —, sans être tenu de communiquer le code
+source de l'Extension ni de la placer sous la Licence ou sous une licence compatible avec elle.
+
+Cette permission est subordonnée aux conditions suivantes :
+
+  a) Le Programme lui-même reste soumis à la Licence. Si vous le modifiez, ou si vous distribuez
+     tout ou partie du Programme, vous respectez la Licence pour ces modifications et pour cette
+     partie (texte de la Licence, avis de droit d'auteur, code source correspondant).
+
+  b) L'article 13 de la Licence continue de s'appliquer à toute version modifiée du Programme que
+     des utilisateurs font fonctionner à distance, par un réseau informatique. Il porte sur le
+     Programme ; il n'exige pas la communication du code source d'une Extension couverte par la
+     présente exception.
+
+  c) Cette exception ne confère aucun droit sur les Extensions d'autrui : chaque Extension reste
+     régie par les conditions de son auteur.
+
+
+3. PORTÉE
+
+Cette permission est accordée par chaque titulaire de droits d'auteur sur le Programme, pour le code
+dont il détient les droits. Toute personne qui contribue au Programme peut y souscrire pour sa
+contribution. À défaut, elle ne couvre pas cette contribution.
+
+Elle vaut pour tous les destinataires du Programme, pour toutes ses versions diffusées avec ce
+fichier. Comme le prévoit l'article 7 de la Licence, quiconque transmet une copie du Programme
+peut retirer cette permission supplémentaire de sa copie ; l'Extension qui s'appuyait sur elle
+ne bénéficie alors plus de l'exception pour cette copie.
+
+
+-----------------------------------------------------------------------------------------------
+ENGLISH TRANSLATION (for convenience only; the French text prevails)
+
+EXCEPTION FOR EXTENSIONS
+(additional permission under section 7 of the GNU Affero General Public License v3)
+
+Copyright (c) 2026 Thomas — Kidlogis.
+
+The AltoCompta program (the "Program") is distributed under the GNU Affero General Public License,
+version 3 (the "License"), the text of which is in the file LICENSE. The copyright holders of the
+Program add the following additional permission under section 7 of the License. It supplements
+the License and does not replace it.
+
+1. DEFINITION
+
+An "Extension" is a module that:
+  a) contains no file of the Program and modifies none;
+  b) is loaded by the Program's extension mechanism (the class Bnc\Plugin, file src/Plugin.php,
+     and the extension's plugin.php manifest); and
+  c) interacts with the Program only through that manifest, the Program's public classes,
+     functions and constants, its database tables, and the extension points that mechanism
+     provides (routes, navigation, migrations, contributions to the tax return, connectors).
+
+2. PERMISSION
+
+You may write, use, copy, distribute and sell an Extension, and distribute it with the Program or
+in combination with it, under the license terms of your choice — free or proprietary, including
+"all rights reserved" — without being required to provide the source code of the Extension or to
+license it under the License or any license compatible with it.
+
+This permission is subject to the following conditions:
+
+  a) The Program itself remains subject to the License. If you modify it, or distribute all or
+     part of it, you comply with the License for those modifications and that part (license text,
+     copyright notices, corresponding source code).
+
+  b) Section 13 of the License continues to apply to any modified version of the Program that
+     users interact with remotely through a computer network. It concerns the Program; it does
+     not require providing the source code of an Extension covered by this exception.
+
+  c) This exception grants no rights in other people's Extensions: each Extension remains governed
+     by its author's terms.
+
+3. SCOPE
+
+This permission is granted by each copyright holder of the Program, for the code to which that
+holder owns the rights. Anyone who contributes to the Program may join it for their contribution.
+Otherwise it does not cover that contribution.
+
+It applies to all recipients of the Program, for all versions distributed with this file. As
+section 7 of the License provides, anyone who conveys a copy of the Program may remove this
+additional permission from their copy; an Extension relying on it then no longer benefits from
+the exception for that copy.

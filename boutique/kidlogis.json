@@ -1,0 +1,113 @@
+{
+    "schema": 1,
+    "boutique": {
+        "id": "kidlogis",
+        "nom": "Boutique Kidlogis",
+        "url": "https://kidlogis.fr/",
+        "description": "Les extensions officielles d'AltoCompta."
+    },
+    "produits": [
+        {
+            "id": "immobilisations",
+            "extension": "immobilisations",
+            "titre": "Immobilisations",
+            "resume": "Registre des immobilisations et amortissements : dotation en case CH, annexe 2035-B, plus-values de cession. Pour que votre matériel ne soit plus déduit d'un seul coup.",
+            "description": "Un matériel durable ne se déduit pas en une fois : il s’inscrit à l’actif et s’amortit sur plusieurs années. Cette extension tient le registre de vos immobilisations (ordinateur, mobilier, véhicule, outillage…) et calcule vos amortissements exercice après exercice. Elle alimente automatiquement la déclaration 2035 : case CH et annexe 2035-B. À la revente d’un bien, elle calcule la plus-value ou la moins-value de cession. Chaque rectification ou annulation est journalisée : rien n’est supprimé ni réécrit en silence.",
+            "points_forts": [
+                "Amortissement linéaire ou dégressif",
+                "Dotation reportée en case CH, annexe 2035-B générée",
+                "Plus-values et moins-values de cession",
+                "Rectification, annulation et cession tracées dans le journal",
+                "Export CSV du registre",
+                "Sans cette extension, la 2035 n’a ni dotation aux amortissements ni annexe 2035-B"
+            ],
+            "prerequis": "Les règles d'amortissement relèvent de la fiscalité : faites valider vos choix par votre expert-comptable.",
+            "version": "1.1.0",
+            "core_min": "2026.10.15",
+            "prix": {
+                "montant": 29.9,
+                "devise": "EUR"
+            },
+            "url_achat": "https://kidlogis.fr/produit/altocompta-module-immobilisations/",
+            "image": "images/immobilisations.webp",
+            "editeur": "Kidlogis",
+            "sha256": "2f6ff2c03a17e85801382f9926f7e07ec2450e0a611e382c996f8dbb8b60f9ea"
+        },
+        {
+            "id": "altoviz",
+            "extension": "altoviz",
+            "titre": "Connecteur Altoviz",
+            "resume": "Vos opérations bancaires Altoviz arrivent seules dans AltoCompta, sans téléchargement ni import. Synchronisation planifiée ou immédiate, sans doublon.",
+            "description": "Fini l’export de relevés : le connecteur récupère vos opérations bancaires depuis Altoviz et les place dans l’écran « À affecter ». Vous choisissez la fréquence de synchronisation (toutes les heures, deux fois par jour, une fois par jour ou à la demande), et une notification d’Altoviz peut la déclencher immédiatement. Vous sélectionnez les comptes à suivre, par exemple pour écarter un ancien compte déjà importé. Les opérations encore « en attente » sont ignorées jusqu’à leur écriture définitive. Chaque opération est reconnue par son identifiant Altoviz : aucun doublon, même si le libellé change. Votre clé API est chiffrée.",
+            "points_forts": [
+                "Synchronisation planifiée ou immédiate par notification",
+                "Choix des comptes, rechargement de l’exercice en un clic",
+                "Aucun doublon : identité par identifiant natif",
+                "Journal de chaque appel, sans clé ni jeton",
+                "Fonctionne avec l’import CSV/OFX du cœur"
+            ],
+            "prerequis": "Un compte Altoviz avec accès API. Pour la synchronisation planifiée, une tâche planifiée (cron) sur votre hébergement.",
+            "version": "1.0.0",
+            "core_min": "2026.10.11",
+            "prix": {
+                "montant": 29.9,
+                "devise": "EUR"
+            },
+            "url_achat": "https://kidlogis.fr/produit/altocompta-module-altoviz/",
+            "image": "images/altoviz.webp",
+            "editeur": "Kidlogis",
+            "sha256": "2e940f547e774a0c8bea7c5fa8d808e0243cff50c223a4230860a92918fc40ed"
+        },
+        {
+            "id": "evoliz",
+            "extension": "evoliz",
+            "titre": "Connecteur Evoliz",
+            "resume": "Les lignes bancaires de votre compte Evoliz arrivent directement dans AltoCompta. Choix des comptes, fréquence réglable, sans doublon.",
+            "description": "Si vous utilisez Evoliz, ce connecteur importe vos lignes bancaires dans l'écran « À affecter » d'AltoCompta, sans manipulation. Vous saisissez une fois vos clés API, qui sont chiffrées ; l'application réutilise le jeton temporaire d'Evoliz pour respecter sa limite d'appels. Chaque ligne est reconnue par son identifiant Evoliz : une opération déjà importée n'est jamais recréée. Le sens des mouvements (entrée ou sortie) est établi par le filtre d'Evoliz, et l'import est refusé plutôt que d'inverser une opération si ce sens est ambigu. Vous choisissez les comptes à suivre et la fréquence de synchronisation. Evoliz n'envoie pas de notification : la synchronisation est planifiée ou manuelle.",
+            "points_forts": [
+                "Choix des comptes, fréquence réglable",
+                "Clé secrète et jeton chiffrés, jamais journalisés",
+                "Détection des doublons avec les autres sources",
+                "Journal des appels pour diagnostiquer",
+                "Page de connexion avec test des clés"
+            ],
+            "prerequis": "Des clés API Evoliz (l'utilisateur lié doit pouvoir consulter les banques). Pour la synchronisation automatique, une tâche planifiée (cron).",
+            "version": "1.0.0",
+            "core_min": "2026.10.11",
+            "prix": {
+                "montant": 29.9,
+                "devise": "EUR"
+            },
+            "url_achat": "https://kidlogis.fr/produit/altocompta-module-evoliz/",
+            "image": "images/evoliz.webp",
+            "editeur": "Kidlogis",
+            "sha256": "12934949bcfa033343e3cb0042a4262229a4161b3dde52cbfb51cb15dfa0c427"
+        },
+        {
+            "id": "domicile",
+            "extension": "domicile",
+            "titre": "Local à domicile",
+            "resume": "Calculez la quote-part professionnelle de votre logement et appliquez-la à vos dépenses, avec corrections tracées et fiche de calcul pour la 2035.",
+            "description": "Vous travaillez chez vous ? Cette extension calcule la part professionnelle de votre logement et l'applique aux dépenses concernées : loyer, énergie, assurance, taxe foncière, abonnements. Tout est une option : locataire ou propriétaire, pièce réservée, partagée ou local entier, calcul par surface, par nombre de pièces ou par pourcentage, arrondi prudent par défaut. Un clic aligne les dépenses sur la quote-part retenue. Chaque correction laisse une écriture d'annulation et une nouvelle écriture : le journal reste intact et les justificatifs suivent. Une fiche de calcul imprimable détaille la formule et fournit un texte à coller dans le commentaire libre de la 2035. La déclaration signale toute dépense du logement qui ne porte pas la quote-part retenue.",
+            "points_forts": [
+                "Locataire, propriétaire (privé ou à l'actif)",
+                "Surface, pièces ou pourcentage fixé ; arrondi réglable",
+                "Catégories « surface » et abonnements selon l'usage",
+                "Corrections tracées, sans réécriture silencieuse",
+                "Fiche de calcul imprimable (PDF)",
+                "Réglages propres à chaque exercice"
+            ],
+            "prerequis": "Les repères fiscaux affichés viennent de la pratique : faites-les valider par votre expert-comptable.",
+            "version": "1.0.1",
+            "core_min": "2026.10.13",
+            "prix": {
+                "montant": 0,
+                "devise": "EUR"
+            },
+            "url_achat": "https://kidlogis.fr/produit/altocompta-module-local-domicile/",
+            "image": "images/domicile.webp",
+            "editeur": "Kidlogis",
+            "sha256": "cd701e7fbdbe56bfa3593bb5f271e4542ae586f7944a5d8787afef641298e400"
+        }
+    ]
+}

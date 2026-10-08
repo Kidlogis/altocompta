@@ -1,0 +1,32 @@
+# Configuration nginx générique pour un hébergement avec accès root/VPS.
+# À placer dans le vhost du domaine, ou dans les directives personnalisées.
+#
+# Le point important : install.php, webhook.php et les fichiers statiques sont
+# servis directement, tout le reste passe par index.php.
+
+server {
+    listen 443 ssl http2;
+    server_name compta.exemple.fr;
+
+    root /home/UTILISATEUR/web/compta.exemple.fr/public;
+    index index.php;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    # Rien en dehors de public/ ne doit être accessible.
+    location ~ ^/(config|src|db|bin|storage|templates)/ {
+        deny all;
+        return 404;
+    }
+
+    client_max_body_size 12M;   # justificatifs : 10 Mo + marge
+}

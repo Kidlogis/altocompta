@@ -1,0 +1,7 @@
+{
+  "name": "urssaf-local",
+  "private": true,
+  "type": "module",
+  "description": "Serveur d'essai : les règles publiées de l'Urssaf derrière la même interface que son API",
+  "dependencies": { "modele-social": "11.1.0", "publicodes": "1.10.3" }
+}

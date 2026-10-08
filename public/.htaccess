@@ -1,0 +1,10 @@
+# Apache — tout passe par index.php
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+
+Options -Indexes
+<FilesMatch "\.(sql|md|log)$">
+  Require all denied
+</FilesMatch>
